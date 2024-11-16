@@ -28,6 +28,7 @@ pipeline {
         stage('Docker Recreate') {
             agent any
             steps {
+                sh 'whoami'
                 sh 'cd /var/local'
                 sh 'docker-compose pull'
                 sh 'docker-compose up --force-recreate --build -d'
