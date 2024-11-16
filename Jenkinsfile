@@ -29,8 +29,8 @@ pipeline {
             agent any
             steps {
                 sh 'docker-compose -f "/var/local/docker-compose.yml" pull'
-                sh 'docker-compose -f "/var/local/docker-compose.yml" up --force-recreate --build -d'
-                sh 'docker image prune -f'
+                sh 'docker-compose -f "/var/local/docker-compose.yml" down'
+                sh 'docker-compose -f "/var/local/docker-compose.yml" up'
             }
         }
     }
