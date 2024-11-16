@@ -28,9 +28,8 @@ pipeline {
         stage('Docker Recreate') {
             agent any
             steps {
-                sh 'cd /var/local'
-                sh 'docker-compose pull'
-                sh 'docker-compose up --force-recreate --build -d'
+                sh 'docker-compose -f "/var/local/docker-compose.yml" pull'
+                sh 'docker-compose -f "/var/local/docker-compose.yml" up --force-recreate --build -d'
                 sh 'docker image prune -f'
             }
         }
