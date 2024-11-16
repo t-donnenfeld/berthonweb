@@ -17,11 +17,12 @@ pipeline {
         }
         stage('Docker Push') {
             agent any
+            environment {
+                    DOCKER_REGISTRY_CREDS = credentials('c5c82df7-4d85-4778-ac39-c7937dfdd064')
+            }
             steps {
-                withCredentials([usernamePassword(credentialsId: 'c5c82df7-4d85-4778-ac39-c7937dfdd064', passwordVariable: 'registryPassword', usernameVariable: 'registryUser')]) {
-                    sh 'docker login -u ${env.registryUser} -p ${env.registryPassword} localhost:5000'
-                    sh 'docker push localhost:5000/les12/berthonweb:latest'
-                }
+                sh 'docker login -u $DOCKER_REGISTRY_CREDS_USR -p $DOCKER_REGISTRY_CREDS_PSW localhost:5000'
+                sh 'docker push localhost:5000/les12/berthonweb:latest'
             }
         }
     }
