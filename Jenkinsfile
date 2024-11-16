@@ -25,5 +25,14 @@ pipeline {
                 sh 'docker push localhost:5000/les12/berthonweb:latest'
             }
         }
+        stage('Docker Recreate') {
+            agent any
+            steps {
+                sh 'cd /var/local'
+                sh 'docker-compose pull'
+                sh 'docker-compose up --force-recreate --build -d'
+                sh 'docker image prune -f'
+            }
+        }
     }
 }
